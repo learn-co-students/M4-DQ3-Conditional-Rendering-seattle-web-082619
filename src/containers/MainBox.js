@@ -1,9 +1,36 @@
 import React from 'react'
 import MenuBar from '../components/MenuBar.js'
 import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
+import { cocktails } from '../data.js'
 
 class MainBox extends React.Component {
 
+  state = {
+    page: 'profile'
+  }
+
+  pageSelect = (event) => {
+    this.setState({
+      page: event.target.id
+    })
+  }
+
+  renderPageSelection = () => {
+    switch (this.state.page) {
+    case 'profile':
+      return <Profile />
+      break;
+    case 'photo':
+      return <Photos />
+      break;
+    case 'cocktail':
+      return <Cocktails />
+      break;
+    case 'pokemon':
+        return <Pokemon />
+      break;
+    }
+  }
 
   render() {
 
@@ -13,12 +40,10 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
-
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar onPageSelect={this.pageSelect} />
+        {this.renderPageSelection()}
       </div>
     )
   }
